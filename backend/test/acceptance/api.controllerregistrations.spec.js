@@ -30,4 +30,17 @@ module.exports = function ({ agent, sandbox, auth, k8s }) {
     expect(res.body).to.have.length(2)
     expect(res.body[0]).to.include({ name: 'foo', version: 'v1.0.0' })
   })
+
+  it('should return all registered networking types', async function () {
+    common.stub.getControllerRegistrations(sandbox)
+
+    const res = await agent
+      .get('/api/controllerregistrations/resources/kind/network/types')
+      .set('cookie', await user.cookie)
+
+    expect(res).to.have.status(200)
+    expect(res).to.be.json
+    expect(res.body).to.have.length(1)
+    expect(res.body[0]).to.eql('NetworkType')
+  })
 }

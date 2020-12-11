@@ -157,7 +157,14 @@ const controllerRegistrationList = [
     metadata: {
       name: 'bar'
     },
-    spec: {}
+    spec: {
+      resources: [
+        {
+          kind: 'Network',
+          type: 'NetworkType'
+        }
+      ]
+    }
   }
 ]
 
